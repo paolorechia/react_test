@@ -22,7 +22,25 @@
   font-size: large;
 }
 
+.App-Todo {
+  background-color: #999999;
+  
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes test-animation {
+    0%   {color: red;}
+    25%  {color: yellow;}
+    50%  {color: blue;}
+    100% {color: green;}
+}
+
+.test {
+  animation: App-logo-spin;
+  animation-duration: 4s;
+  color: green;
 }
