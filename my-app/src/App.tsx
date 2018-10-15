@@ -1,10 +1,10 @@
 import * as React from "react"
 import "./App.css"
 
-class Test extends React.Component {
+class Title extends React.Component {
   public render(){
     return (
-      <h3 className="test" > test </h3>
+      <h3 className="title" > Todo manager</h3>
     )
   }
 }
@@ -14,17 +14,20 @@ class Done extends React.Component<any, any> {
     super(props);
   }
   public render(){
-    let text: string;
-    if (this.props.finished)
-      text = "Undo";
-    else
-      text = "Done";
+    let class_ = "Button" + this.props.class_;
     return (
       <td>
         <button id={this.props.id}
                 onClick={this.props.click}
+                className={class_}
         > 
-          {text}
+          {this.props.class_}
+        </button>
+        <button id={this.props.id}
+                onClick={this.props.clickRemove}
+                className="remove"
+        > 
+          Remove
         </button>
       </td>
     )
@@ -36,8 +39,9 @@ class Item extends React.Component<any, any> {
     super(props);
   }
   public render(){
+    let class_ = "Item" + this.props.class_;
     return (
-      <td> {this.props.name} </td>
+      <td className = {class_}> {this.props.name} </td>
     )
   }
 }
@@ -47,15 +51,22 @@ class Line extends React.Component<any, any> {
     super(props);
   }
   public render(){
+    let text: string;
+    if (this.props.finished)
+      text = "Undo";
+    else
+      text = "Done";
     return (
       <tr> 
         <Item 
           name = {this.props.name}
+          class_ = {text}
         /> 
         <Done
           id = {this.props.id}
           click = {this.props.click}
-          finished = {this.props.finished}
+          class_ = {text}
+          clickRemove = {this.props.clickRemove}
          />
       </tr>
     )
@@ -103,19 +114,39 @@ class TodoApp extends React.Component<{}, {todo_list: ItemList}> {
   public addItem(new_item: TodoItem){
     this.setState((state, props) => {
       this.todo_list.push(new_item);
-      return {todo_list: this.todo_list};
+      return {todo_list: this.state.todo_list};
+    });
+  }
+  public removeItem(item_id: number){
+    this.setState((state, props) => {
+      console.log(this.state.todo_list);
+      let list = this.state.todo_list;
+      for (let i = 0; i < list.length; i++){
+        if (list[i].id == item_id){
+          this.state.todo_list.splice(i, 1);
+        }
+      }
+      return {todo_list: this.state.todo_list};
     });
   }
   public finishItem(item_id: number){
     this.setState((state, props) => {
-      this.state.todo_list[item_id].finished = true;
-      return {todo_list: this.todo_list};
+      let list = this.state.todo_list;
+      for (let i = 0; i < list.length; i++){
+        if (list[i].id == item_id)
+          this.state.todo_list[i].finished = true;
+      }
+      return {todo_list: this.state.todo_list};
     });
   }
   public undoItem(item_id: number){
     this.setState((state, props) => {
-      this.state.todo_list[item_id].finished = false;
-      return {todo_list: this.todo_list};
+      let list = this.state.todo_list;
+      for (let i = 0; i < list.length; i++){
+        if (list[i].id == item_id)
+        this.state.todo_list[i].finished = false;
+      }
+      return {todo_list: this.state.todo_list};
     });
   }
   public handleSubmit(e: React.FormEvent<HTMLFormElement>){
@@ -146,6 +177,20 @@ class TodoApp extends React.Component<{}, {todo_list: ItemList}> {
     return null;
   }
 
+  public clickRemover(e: any){
+    console.log(e.target);
+    let id: number = e.target.id;
+    console.log(id);
+    let list: ItemList = this.state.todo_list;
+    for (let i: number = 0; i < list.length; i++){
+      if (list[i].id == id){
+        console.log("Removing target " + id);
+          this.removeItem(id); 
+      }
+    }
+    return null;
+  }
+
   public compare(a: TodoItem, b: TodoItem){
     if (a.id < b.id) return -1;
     if (a.id > b.id) return 1;
@@ -166,18 +211,20 @@ class TodoApp extends React.Component<{}, {todo_list: ItemList}> {
                          key={cur_id} 
                          name = {cur_name}
                          finished = {is_finished}
-                         click={(e: any) =>this.clickHandler(e)} />)
+                         click={(e: any) =>this.clickHandler(e)}
+                         clickRemove={(e: any) =>this.clickRemover(e)} />)
       else
         todo_lines.push(<Line id={cur_id}
                          key={cur_id} 
                          name = {cur_name}
                          finished = {is_finished}
-                         click={(e: any) =>this.clickHandler(e)} />)
+                         click={(e: any) =>this.clickHandler(e)}
+                         clickRemove={(e: any) =>this.clickRemover(e)} />)
     }
     return (
       <div className="App">
         <div className="App-title">
-          <Test />
+          <Title />
         </div>
         <div className="App-Input">
           <Input 

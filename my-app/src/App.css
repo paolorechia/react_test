@@ -1,31 +1,12 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+  background-color: #FFFFFF;
 }
 
 .App-title {
   font-size: 1.5em;
 }
 
-.App-intro {
-  font-size: large;
-}
-
-.App-Todo {
-  background-color: #999999;
-  
-}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
@@ -39,8 +20,42 @@
     100% {color: green;}
 }
 
-.test {
+.title {
   animation: App-logo-spin;
   animation-duration: 4s;
   color: green;
+}
+
+.App-Todo {
+  background-color: #FFCCAA;
+  text-align: center;  
+  text-color: #FFFFFF;
+  display: table;
+  margin: 0 auto;
+  min-height: 100px;
+}
+.App-Done {
+  background-color: #AABBFF;
+  text-align: center;  
+  display: table;
+  margin: 0 auto;
+  min-height: 100px;
+}
+
+.ItemDone{
+  min-width: 400px;
+  max-width: 800px;
+  text-align: left;
+}
+.ButtonDone{
+  background-color: #AAFFAA;
+
+}
+.ItemUndo{
+  min-width: 400px;
+  max-width: 800px;
+  text-align: left;
+}
+.ButtonUndo{
+  background-color: #FFAAAA;
 }
