@@ -49,7 +49,7 @@
 }
 .ButtonDone{
   background-color: #AAFFAA;
-
+  height: 40px;
 }
 .ItemUndo{
   min-width: 400px;
@@ -57,5 +57,10 @@
   text-align: left;
 }
 .ButtonUndo{
-  background-color: #FFAAAA;
+  background-color: #FFFFAA;
+  height: 40px;
+}
+.ButtonRemove{
+  background-color: #FF8888;
+  height: 40px;
 }

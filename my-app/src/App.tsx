@@ -25,7 +25,7 @@ class Done extends React.Component<any, any> {
         </button>
         <button id={this.props.id}
                 onClick={this.props.clickRemove}
-                className="remove"
+                className="ButtonRemove"
         > 
           Remove
         </button>
@@ -80,7 +80,8 @@ class Input extends React.Component<any, any> {
   public render(){
     return (
       <form onSubmit={(e) => this.props.handler(e)}> 
-        <input type="text" name="New task"
+        <input autoFocus
+               type="text" name="New task"
                placeholder="Write your task here"
                id= {this.props.id}
          />
@@ -110,6 +111,7 @@ class TodoApp extends React.Component<{}, {todo_list: ItemList}> {
       todo_list: this.todo_list,
     }
   }
+
 
   public addItem(new_item: TodoItem){
     this.setState((state, props) => {
